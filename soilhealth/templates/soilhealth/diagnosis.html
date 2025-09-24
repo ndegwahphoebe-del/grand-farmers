@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Soil Diagnosis</title>
+    <link rel="stylesheet" href="{% static 'soilhealth/css/style.css' %}">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
+        .container { max-width: 800px; margin: auto; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #2E8B57; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
+        th { background-color: #e2f0d9; }
+        ul { margin-top: 0; padding-left: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Soil Diagnosis Results</h1>
+
+        <h2>Farmer & Farm Details</h2>
+        <p><strong>Farmer:</strong> {{ farmer_name }}</p>
+        <p><strong>Location:</strong> {{ location }}</p>
+        <p><strong>Crop:</strong> {{ crop }}</p>
+
+        <h2>Soil Test Results</h2>
+        <table>
+            <tr><th>Parameter</th><th>Value</th></tr>
+            <tr><td>pH</td><td>{{ ph }}</td></tr>
+            <tr><td>Organic Matter (%)</td><td>{{ organic_matter }}</td></tr>
+            <tr><td>Nitrogen (N)</td><td>{{ nitrogen }}</td></tr>
+            <tr><td>Phosphorus (P)</td><td>{{ phosphorus }}</td></tr>
+            <tr><td>Potassium (K)</td><td>{{ potassium }}</td></tr>
+        </table>
+
+        <h2>Recommendations & Advice</h2>
+        {% if recommendations %}
+            <ul>
+                {% for rec in recommendations %}
+                    <li style="color: {{ rec.color }}; font-weight: bold;">{{ rec.text }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No recommendations available.</p>
+        {% endif %}
+
+        <p><a href="{% url 'soilhealth:soil_sample' %}">← Back to Soil Test</a></p>
+    </div>
+</body>
+</html>

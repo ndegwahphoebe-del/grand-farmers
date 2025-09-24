@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Climate-Smart Insights - Grand Farmers</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f7; margin: 0; padding: 20px; }
+        h1 { color: #2f7d32; text-align: center; margin-bottom: 20px; }
+        form { background: white; padding: 20px; border-radius: 12px; max-width: 650px; margin: 0 auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        label { display: block; margin: 10px 0 5px; color: #333; }
+        input, select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; }
+        button { margin-top: 15px; padding: 10px 20px; background-color: #2f7d32; color: white; border: none; border-radius: 6px; cursor: pointer; }
+        button:hover { background-color: #256428; }
+        .strategies { margin-top: 30px; }
+        .strategy-card { background: white; border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
+        .strategy-card strong { color: #1b4332; }
+        .back-link { display: block; margin: 30px auto; text-align: center; color: #2f7d32; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>☀️ Climate-Smart Farming Insights</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location" placeholder="Enter your location" required>
+
+        <label for="rainfall">Rainfall Level:</label>
+        <select name="rainfall" id="rainfall" required>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+
+        <label for="temperature">Temperature Level:</label>
+        <select name="temperature" id="temperature" required>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+
+        <label for="soil_type">Soil Type:</label>
+        <select name="soil_type" id="soil_type" required>
+            <option value="sandy">Sandy</option>
+            <option value="clay">Clay</option>
+            <option value="loamy">Loamy</option>
+        </select>
+
+        <button type="submit">Get Climate Insights</button>
+    </form>
+
+    {% if strategies %}
+    <div class="strategies">
+        <h2>✅ Recommended Climate-Smart Strategies</h2>
+        {% for key, value in strategies.items %}
+            <div class="strategy-card">
+                <strong>{{ key|title }}:</strong> {{ value }}
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p style="text-align:center; margin-top:20px; color:#555;">
+        Fill in the form above to receive tailored climate-smart strategies.
+    </p>
+    {% endif %}
+
+    <a href="{% url 'soilhealth:home' %}" class="back-link">⬅ Back to Home</a>
+</body>
+</html>
+
+

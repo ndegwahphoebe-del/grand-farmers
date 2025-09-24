@@ -1,0 +1,31 @@
+{% extends "soilhealth/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4">✅ Soil Diagnosis Results</h2>
+
+  <div class="card p-4 shadow rounded">
+    <p><strong>Crop Selected:</strong> {{ crop }}</p>
+    <p><strong>Soil pH:</strong> {{ ph }}</p>
+    <p><strong>Nutrient Level:</strong> {{ nutrient }}</p>
+    <p><strong>Organic Matter:</strong> {{ organic_matter }}</p>
+  </div>
+
+  <h3 class="mt-4">🌱 Recommendations:</h3>
+  <div class="results card p-4 shadow rounded bg-light">
+    <ul>
+      {% for rec in recommendations %}
+        <li>{{ rec }}</li>
+      {% empty %}
+        <li>No recommendations available. Please try again.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="{% url 'soilhealth:soil_sample' %}" class="btn btn-primary me-2">🧪 Run Another Test</a>
+    <a href="{% url 'soilhealth:home' %}" class="btn btn-outline-secondary">⬅ Back to Home</a>
+  </div>
+</div>
+{% endblock %}
+
